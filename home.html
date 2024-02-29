@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Chat bot Prototype</h1>
+    <div class="input-class">
+      <form id="intform">
+        <input
+          type="text"
+          id="inputData"
+          name="inputData"
+          placeholder="Ask me something:)"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="answer">
+      <h4 id="output"></h4>
+    </div>
+
+    <script>
+      document
+        .getElementById("intform")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var formData = new FormData(this);
+
+          fetch("/process", {
+            method: "POST",
+            body: formData,
+          })
+            .then((respose) => respose.text())
+            .then((data) => {
+              document.getElementById("output").innerHTML = data;
+            });
+        });
+    </script>
+  </body>
+</html>
